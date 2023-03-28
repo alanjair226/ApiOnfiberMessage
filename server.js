@@ -2,18 +2,19 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-app.get('/saludo/:token', (req, res) => {
+app.get('/saludo/:id/:token', (req, res) => {
+  const id = req.params.id;
+  const token = req.params.token;
   const saludo = saludarSegunHora();
-  const token = req.params.token; // Obtener el token desde el parámetro en la ruta
 
-  axios.post('https://api.chatapi.net/v2/contact/id:68116723/message', {
+  axios.post(`https://api.chatapi.net/v2/contact/id:${id}/message`, {
     message: {
       type: 'text',
       text: saludo,
     }
   }, {
     headers: {
-      'Authorization': `Bearer ${token}`, // Pasar el token en el header
+      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json'
     }
   })
