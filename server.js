@@ -2,8 +2,9 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-app.get('/saludo', (req, res) => {
+app.get('/saludo/:token', (req, res) => {
   const saludo = saludarSegunHora();
+  const token = req.params.token; // Obtener el token desde el parámetro en la ruta
 
   axios.post('https://api.chatapi.net/v2/contact/id:68116723/message', {
     message: {
@@ -12,7 +13,7 @@ app.get('/saludo', (req, res) => {
     }
   }, {
     headers: {
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ2OCwic3BhY2VJZCI6NDg5NDUsIm9yZ0lkIjo4MDcyLCJ0eXBlIjoiYXBpIiwiaWF0IjoxNjc5ODU2NDc5fQ.woKrY-cCv3csGyHdzJB_xZ2kT4rhEljYZVkwVKt6S0Y',
+      'Authorization': `Bearer ${token}`, // Pasar el token en el header
       'Content-Type': 'application/json'
     }
   })
