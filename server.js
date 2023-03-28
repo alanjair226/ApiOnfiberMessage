@@ -29,10 +29,11 @@ app.get('/saludo/:id/:token', (req, res) => {
 });
 
 function saludarSegunHora() {
-  const hora = new Date().getHours();
+  const options = { timeZone: 'America/Mexico_City', hour: 'numeric' };
+  const hora = new Date().toLocaleString('es-MX', options);
   let saludo;
 
-  if (hora >= 5 && hora < 12) {
+  if (hora >= 5 && hora < 12 ) {
     saludo = "Buenos días";
   } else if (hora >= 12 && hora < 20) {
     saludo = "Buenas tardes";
